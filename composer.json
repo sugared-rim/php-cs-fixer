@@ -18,21 +18,16 @@
     },
     "require": {
         "php": ">=5.6.0",
-        "fabpot/php-cs-fixer": "^1.10",
-        "schnittstabil/composer-extra": "^0.5",
+        "fabpot/php-cs-fixer": "^1.0",
+        "schnittstabil/composer-extra": "^1.0",
         "schnittstabil/finder-by-config": "^0.1",
         "schnittstabil/get": "^2.0"
     },
     "require-dev": {
-        "codeclimate/php-test-reporter": "^0.3",
-        "phpmetrics/phpmetrics": "^1.10",
-        "satooshi/php-coveralls": "^1.0",
-        "schnittstabil/sugared-phpmd": "^0.2",
-        "schnittstabil/sugared-phpunit": "^0.5",
-        "schnittstabil/sugared-php_codesniffer": "^0.2"
+        "schnittstabil/sugared-phpunit": "^1.0"
     },
     "extra": {
-        "schnittstabil\/php-cs-fixer no-presets": {
+        "schnittstabil/php-cs-fixer no-presets": {
             "presets": false
         }
     },
@@ -56,6 +51,7 @@
             "composer lint",
             "sugared-phpunit",
             "./sugared-php-cs-fixer"
-        ]
+        ],
+        "travis": "sugared-phpunit"
     }
 }

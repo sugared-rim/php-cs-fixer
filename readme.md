@@ -40,7 +40,7 @@ Some of the default settings:
         "lint": "sugared-php-cs-fixer"
     },
     "extra": {
-        "schnittstabil\/sugared-php-cs-fixer": {
+        "schnittstabil/sugared-php-cs-fixer": {
             "diff": true,
             "dry-run": true,
             "cache": true,
