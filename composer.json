@@ -1,9 +1,9 @@
 {
-    "name": "schnittstabil/sugared-php-cs-fixer",
+    "name": "sugared-rim/php-cs-fixer",
     "type": "library",
     "description": "PHP-CS-Fixer sweetened with ease",
     "license": "MIT",
-    "keywords": ["sugared", "preconfigured", "php-cs-fixer", "standards", "cs", "lint"],
+    "keywords": ["sugared", "preconfigured", "php-cs-fixer", "standards", "cs", "lint", "sugared-rim"],
     "authors": [
         {
             "name": "Michael Mayer",
@@ -11,10 +11,10 @@
         }
     ],
     "autoload": {
-        "psr-4": { "Schnittstabil\\Sugared\\PhpCsFixer\\": "src" }
+        "psr-4": { "SugaredRim\\PhpCsFixer\\": "src" }
     },
     "autoload-dev": {
-        "psr-4": { "Schnittstabil\\Sugared\\PhpCsFixer\\": "tests" }
+        "psr-4": { "SugaredRim\\PhpCsFixer\\": "tests" }
     },
     "require": {
         "php": ">=5.6.0",
@@ -24,15 +24,15 @@
         "schnittstabil/get": "^2.0"
     },
     "require-dev": {
-        "schnittstabil/sugared-phpunit": "^1.0"
+        "sugared-rim/phpunit": "^2.0"
     },
     "extra": {
-        "schnittstabil/php-cs-fixer no-presets": {
+        "sugared-rim/php-cs-fixer no-presets": {
             "presets": false
         }
     },
     "bin": [
-        "sugared-php-cs-fixer"
+        "sugared-rim-php-cs-fixer"
     ],
     "scripts": {
         "clean": "rm -rf build/",
@@ -41,17 +41,17 @@
             "phpmetrics --report-html build/phpmetrics/index.html src/"
         ],
         "lint": [
-            "sugared-phpcs",
+            "sugared-rim-phpcs",
             "sugared-phpmd",
-            "php-cs-fixer fix --dry-run --diff sugared-php-cs-fixer",
+            "php-cs-fixer fix --dry-run --diff sugared-rim-php-cs-fixer",
             "php-cs-fixer fix --dry-run --diff src",
             "php-cs-fixer fix --dry-run --diff tests"
         ],
         "test": [
-            "composer lint",
-            "sugared-phpunit",
-            "./sugared-php-cs-fixer"
+            "sugared-rim-phpunit",
+            "./sugared-rim-php-cs-fixer --help",
+            "composer lint"
         ],
-        "travis": "sugared-phpunit"
+        "travis": "sugared-rim-phpunit"
     }
 }

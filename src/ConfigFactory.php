@@ -1,6 +1,6 @@
 <?php
 
-namespace Schnittstabil\Sugared\PhpCsFixer;
+namespace SugaredRim\PhpCsFixer;
 
 use Schnittstabil\Get\Get;
 use Schnittstabil\ComposerExtra\ComposerExtra;
@@ -14,7 +14,7 @@ class ConfigFactory
     {
         $this->defaults = new \stdClass();
         $this->defaults->presets = [
-            'Schnittstabil\\Sugared\\PhpCsFixer\\DefaultPreset::get',
+            'SugaredRim\\PhpCsFixer\\DefaultPreset::get',
         ];
     }
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Schnittstabil\Sugared\PhpCsFixer\Console\Command;
+namespace SugaredRim\PhpCsFixer\Console\Command;
 
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Output\BufferedOutput;

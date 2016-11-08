@@ -1,9 +1,9 @@
 <?php
 
-namespace Schnittstabil\Sugared\PhpCsFixer\Console\Command;
+namespace SugaredRim\PhpCsFixer\Console\Command;
 
 use Schnittstabil\Get\Get;
-use Schnittstabil\Sugared\PhpCsFixer\ConfigFactory;
+use SugaredRim\PhpCsFixer\ConfigFactory;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;

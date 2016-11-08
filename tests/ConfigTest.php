@@ -1,6 +1,6 @@
 <?php
 
-namespace Schnittstabil\Sugared\PhpCsFixer;
+namespace SugaredRim\PhpCsFixer;
 
 class ConfigTest extends \PHPUnit_Framework_TestCase
 {

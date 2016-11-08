@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
 
-use Schnittstabil\Sugared\PhpCsFixer\Console\Application;
+use SugaredRim\PhpCsFixer\Console\Application;
 
 set_error_handler(function ($severity, $message, $file, $line) {
     if ($severity & error_reporting()) {

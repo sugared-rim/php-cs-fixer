@@ -1,29 +1,29 @@
-## Sugared\PHP-CS-Fixer [![Build Status](https://travis-ci.org/schnittstabil/sugared-php-cs-fixer.svg?branch=master)](https://travis-ci.org/schnittstabil/sugared-php-cs-fixer) [![Coverage Status](https://coveralls.io/repos/schnittstabil/sugared-php-cs-fixer/badge.svg?branch=master&service=github)](https://coveralls.io/github/schnittstabil/sugared-php-cs-fixer?branch=master) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/schnittstabil/sugared-php-cs-fixer/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/schnittstabil/sugared-php-cs-fixer/?branch=master) [![Code Climate](https://codeclimate.com/github/schnittstabil/sugared-php-cs-fixer/badges/gpa.svg)](https://codeclimate.com/github/schnittstabil/sugared-php-cs-fixer)
+## SugaredRim\PHP-CS-Fixer [![Build Status](https://travis-ci.org/sugared-rim/php-cs-fixer.svg?branch=master)](https://travis-ci.org/sugared-rim/php-cs-fixer) [![Coverage Status](https://coveralls.io/repos/sugared-rim/php-cs-fixer/badge.svg?branch=master&service=github)](https://coveralls.io/github/sugared-rim/php-cs-fixer?branch=master) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/sugared-rim/php-cs-fixer/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/sugared-rim/php-cs-fixer/?branch=master) [![Code Climate](https://codeclimate.com/github/sugared-rim/php-cs-fixer/badges/gpa.svg)](https://codeclimate.com/github/sugared-rim/php-cs-fixer)
 
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/e1dbc6dc-f3c1-455f-9eb3-69158943ba65/big.png)](https://insight.sensiolabs.com/projects/e1dbc6dc-f3c1-455f-9eb3-69158943ba65)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/905fb88b-2be4-42ba-b383-58b08ce68463/big.png)](https://insight.sensiolabs.com/projects/905fb88b-2be4-42ba-b383-58b08ce68463)
 
 > PHP-CS-Fixer sweetened with ease :cherries:
 
-Sugared\PHP-CS-Fixer takes an opinionated view of code style checking with [PHP-CS-Fixer](https://github.com/FriendsOfPHP/PHP-CS-Fixer), it is preconfigured to get you up and running as quickly as possible.
+SugaredRim\PHP-CS-Fixer takes an opinionated view of code style checking with [PHP-CS-Fixer](https://github.com/FriendsOfPHP/PHP-CS-Fixer), it is preconfigured to get you up and running as quickly as possible.
 
 ### Install
 
 ```
-$ composer require --dev schnittstabil/sugared-php-cs-fixer
+$ composer require --dev sugared-rim/php-cs-fixer
 ```
 
 ### Usage
 
-Instead of running `php-cs-fixer` with all its options, just run `sugared-php-cs-fixer` - that's it:
+Instead of running `php-cs-fixer` with all its options, just run `sugared-rim-php-cs-fixer` - that's it:
 
 ```json
 {
     ...
     "require-dev": {
-        "schnittstabil/sugared-php-cs-fixer": ...
+        "sugared-rim/php-cs-fixer": ...
     },
     "scripts": {
-        "lint": "sugared-php-cs-fixer"
+        "lint": "sugared-rim-php-cs-fixer"
     }
 }
 ```
@@ -37,10 +37,10 @@ Some of the default settings:
 {
     ...
     "scripts": {
-        "lint": "sugared-php-cs-fixer"
+        "lint": "sugared-rim-php-cs-fixer"
     },
     "extra": {
-        "schnittstabil/sugared-php-cs-fixer": {
+        "sugared-rim/php-cs-fixer": {
             "diff": true,
             "dry-run": true,
             "cache": true,

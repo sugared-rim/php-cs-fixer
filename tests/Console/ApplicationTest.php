@@ -1,12 +1,12 @@
 <?php
 
-namespace Schnittstabil\Sugared\PhpCsFixer\Console;
+namespace SugaredRim\PhpCsFixer\Console;
 
 use Symfony\Component\Console\Event\ConsoleCommandEvent;
 use Symfony\Component\Console\Tester\ApplicationTester;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\Filesystem\Filesystem;
-use Schnittstabil\Sugared\PhpCsFixer\Console\Command\FixCommand;
+use SugaredRim\PhpCsFixer\Console\Command\FixCommand;
 
 class ApplicationTest extends \PHPUnit_Framework_TestCase
 {

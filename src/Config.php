@@ -1,10 +1,12 @@
 <?php
 
-namespace Schnittstabil\Sugared\PhpCsFixer;
+namespace SugaredRim\PhpCsFixer;
 
-use Symfony\CS\Config\Config as BaseConfig;
-
-class Config extends BaseConfig
+/**
+ * @property bool $diff
+ * @property bool $dry-run
+ */
+class Config extends \Symfony\CS\Config\Config
 {
     private $extended = array();
 

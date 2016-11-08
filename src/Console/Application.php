@@ -1,10 +1,10 @@
 <?php
 
-namespace Schnittstabil\Sugared\PhpCsFixer\Console;
+namespace SugaredRim\PhpCsFixer\Console;
 
 use Symfony\Component\Console\Application as BaseApplication;
 use Symfony\CS\Console\Command\ReadmeCommand;
-use Schnittstabil\Sugared\PhpCsFixer\Console\Command\FixCommand;
+use SugaredRim\PhpCsFixer\Console\Command\FixCommand;
 
 class Application extends BaseApplication
 {
