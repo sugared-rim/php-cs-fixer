@@ -6,7 +6,7 @@ namespace SugaredRim\PhpCsFixer;
  * @property bool $diff
  * @property bool $dry-run
  */
-class Config extends \Symfony\CS\Config\Config
+class Config extends \PhpCsFixer\Config
 {
     private $extended = array();
 

@@ -6,7 +6,7 @@ use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\Filesystem\Filesystem;
 
-class FixCommandTest extends \PHPUnit_Framework_TestCase
+class FixCommandTest extends \PHPUnit\Framework\TestCase
 {
     protected function setUp()
     {

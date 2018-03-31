@@ -3,7 +3,7 @@
 namespace SugaredRim\PhpCsFixer\Console;
 
 use Symfony\Component\Console\Application as BaseApplication;
-use Symfony\CS\Console\Command\ReadmeCommand;
+use PhpCsFixer\Console\Command\ReadmeCommand;
 use SugaredRim\PhpCsFixer\Console\Command\FixCommand;
 
 class Application extends BaseApplication
@@ -17,6 +17,6 @@ class Application extends BaseApplication
         $this->add(new FixCommand());
         $this->add(new ReadmeCommand());
 
-        $this->setDefaultCommand('fix');
+        $this->setDefaultCommand(FixCommand::COMMAND_NAME);
     }
 }

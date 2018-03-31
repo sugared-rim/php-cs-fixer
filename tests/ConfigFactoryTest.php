@@ -2,10 +2,10 @@
 
 namespace SugaredRim\PhpCsFixer;
 
-use Symfony\CS\Config\Config;
+use PhpCsFixer\Config;
 use Symfony\Component\Finder\Finder;
 
-class ConfigFactoryTest extends \PHPUnit_Framework_TestCase
+class ConfigFactoryTest extends \PHPUnit\Framework\TestCase
 {
     public function testInvokeShouldReturnConfigInstance()
     {

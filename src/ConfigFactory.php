@@ -2,7 +2,7 @@
 
 namespace SugaredRim\PhpCsFixer;
 
-use Schnittstabil\Get\Get;
+use Schnittstabil\Get;
 use Schnittstabil\ComposerExtra\ComposerExtra;
 use Schnittstabil\FinderByConfig\FinderByConfig;
 
@@ -27,22 +27,19 @@ class ConfigFactory
         ))->get();
     }
 
-    /**
-     * @SuppressWarnings(PHPMD.StaticAccess)
-     */
     public function __invoke($namespace)
     {
         $composerConfig = $this->getComposerConfig($namespace);
         $config = new Config();
 
-        $config->diff = Get::value('diff', $composerConfig, false);
-        $config->{'dry-run'} = Get::value('dry-run', $composerConfig, false);
-        $config->setUsingCache(Get::value('cache', $composerConfig, false));
+        $config->diff = Get\value('diff', $composerConfig, false);
+        $config->{'dry-run'} = Get\value('dry-run', $composerConfig, false);
+        $config->setUsingCache(Get\value('cache', $composerConfig, false));
 
-        $path = Get::value('path', $composerConfig);
+        $path = Get\value('path', $composerConfig);
         if (!empty($path)) {
             $finderByConfig = new FinderByConfig();
-            $config->finder($finderByConfig($path));
+            $config->setFinder($finderByConfig($path));
         }
 
         return $config;

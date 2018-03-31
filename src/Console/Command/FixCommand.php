@@ -1,63 +1,90 @@
 <?php
 
+
+
 namespace SugaredRim\PhpCsFixer\Console\Command;
 
-use Schnittstabil\Get\Get;
+use ReflectionMethod;
+use ReflectionProperty;
+use Schnittstabil\Get;
+use SugaredRim\PhpCsFixer\Config;
 use SugaredRim\PhpCsFixer\ConfigFactory;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\CS\ConfigInterface;
-use Symfony\CS\Console\Command\FixCommand as BaseFixCommand;
-use Symfony\CS\Fixer;
+use PhpCsFixer\ConfigInterface;
+use PhpCsFixer\Console\Command\FixCommand as FixCmd;
+use PhpCsFixer\Fixer;
+use PhpCsFixer\ToolInfo;
+use Symfony\Component\Console\Input\InputArgument;
 
-class FixCommand extends BaseFixCommand
+class FixCommand extends Command
 {
+    const COMMAND_NAME = 'fix';
+
+    /**
+     * @var FixCmd
+     */
+    protected $fixCmd;
+
+    /**
+     * @var ConfigFactory
+     */
     protected $configFactory;
 
-    public function __construct(
-        Fixer $fixer = null,
-        ConfigInterface $config = null,
-        ConfigFactory $configFactory = null
-    ) {
-        parent::__construct($fixer, $config);
+    /**
+     * @var Config
+     */
+    protected $defaultConfig;
+
+    public function __construct(ConfigFactory $configFactory = null, FixCmd $fixCmd = null)
+    {
         if ($configFactory === null) {
-            $configFactory = new ConfigFactory();
+            $configFactory = $this->buildDefaultConfigFactory();
         }
         $this->configFactory = $configFactory;
-    }
 
-    /*
-     * Symfony/Console dosen't support options with values very well.
-     * Therefore VALUE_IS_ARRAY: count() === 0 implies the option is not set.
-     */
-    protected function makeOptionValueOptional($name)
-    {
-        $inputDefinition = $this->getDefinition();
-        $args = $inputDefinition->getOptions();
-        $args[$name] = new InputOption(
-            $name,
-            null,
-            InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY,
-            $args[$name]->getDescription(),
-            array()
-        );
-        $inputDefinition->setOptions($args);
+        if ($fixCmd === null) {
+            $fixCmd = $this->buildDefaultFixCommand();
+        }
+        $this->fixCmd = $fixCmd;
+
+        parent::__construct(self::COMMAND_NAME);
     }
 
     /**
-     * @SuppressWarnings(PHPMD.StaticAccess)
+     * @return FixCmd
+     */
+    protected function buildDefaultFixCommand()
+    {
+        return new FixCmd(new ToolInfo);
+    }
+
+    /**
+     * @return ConfigFactory
+     */
+    protected function buildDefaultConfigFactory()
+    {
+        return new ConfigFactory;
+    }
+
+    /**
+     * @param InputInterface $input
+     * @param string $name
+     * @param bool $default
      */
     protected function parseOptionalOptionValue(&$input, $name, $default)
     {
-        if (count($input->getOption($name)) === 0) {
+        $values = $input->getOption($name);
+
+        if (count($values) === 0) {
             // no option; use default
-            $input->setOption($name, Get::value($name, $this->defaultConfig, $default));
+            $input->setOption($name, Get\value($name, $this->defaultConfig, $default));
 
             return;
         }
 
-        $values = $input->getOption($name);
         $value = end($values);
 
         if ($value === null) {
@@ -71,17 +98,22 @@ class FixCommand extends BaseFixCommand
     protected function configure()
     {
         parent::configure();
-        $this->makeOptionValueOptional('dry-run');
-        $this->makeOptionValueOptional('diff');
-        $this->getDefinition()->addOption(
-            new InputOption(
-                'namespace',
-                null,
-                InputOption::VALUE_REQUIRED,
-                'composer.json/extra namespace',
-                'schnittstabil/sugared-php-cs-fixer'
-            )
-        );
+        $this->setDefinition([
+            new InputArgument('path', InputArgument::IS_ARRAY, 'The path.'),
+            new InputOption('path-mode', '', InputOption::VALUE_REQUIRED, 'Specify path mode (can be override or intersection).', 'override'),
+            new InputOption('allow-risky', '', InputOption::VALUE_REQUIRED, 'Are risky fixers allowed (can be yes or no).'),
+            new InputOption('config', '', InputOption::VALUE_REQUIRED, 'The path to a .php_cs file.'),
+            new InputOption('dry-run', '', InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY, 'Only shows which files would have been modified.'),
+            new InputOption('rules', '', InputOption::VALUE_REQUIRED, 'The rules.'),
+            new InputOption('using-cache', '', InputOption::VALUE_REQUIRED, 'Does cache should be used (can be yes or no).'),
+            new InputOption('cache-file', '', InputOption::VALUE_REQUIRED, 'The path to the cache file.'),
+            new InputOption('diff', '', InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY, 'Also produce diff for each file.'),
+            new InputOption('diff-format', '', InputOption::VALUE_REQUIRED, 'Specify diff format.'),
+            new InputOption('format', '', InputOption::VALUE_REQUIRED, 'To output results in other formats.'),
+            new InputOption('stop-on-violation', '', InputOption::VALUE_NONE, 'Stop execution on first violation.'),
+            new InputOption('show-progress', '', InputOption::VALUE_REQUIRED, 'Type of progress indicator (none, run-in, estimating, estimating-max or dots).'),
+            new InputOption('namespace', null, InputOption::VALUE_REQUIRED, 'composer.json/extra namespace', 'sugared-rim/php-cs-fixer'),
+        ])->setDescription('Fixes a directory or a file.');
     }
 
     protected function initialize(InputInterface $input, OutputInterface $output)
@@ -89,9 +121,20 @@ class FixCommand extends BaseFixCommand
         $namespace = $input->getOption('namespace');
         $this->defaultConfig = call_user_func($this->configFactory, $namespace);
 
+        $fixCmdDefaultConfig = new ReflectionProperty(FixCmd::class, 'defaultConfig');
+        $fixCmdDefaultConfig->setAccessible(true);
+        $fixCmdDefaultConfig->setValue($this->fixCmd, $this->defaultConfig);
+
         $this->parseOptionalOptionValue($input, 'diff', false);
         $this->parseOptionalOptionValue($input, 'dry-run', false);
 
         parent::initialize($input, $output);
+    }
+
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
+        $fixCmdConfigure = new ReflectionMethod(FixCmd::class, 'execute');
+        $fixCmdConfigure->setAccessible(true);
+        return $fixCmdConfigure->invoke($this->fixCmd, $input, $output);
     }
 }
